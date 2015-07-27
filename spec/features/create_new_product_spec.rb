@@ -1,6 +1,14 @@
 require "rails_helper"
 
 feature "a product" do 
+  before do
+    @product = Product.create :name => 'Nexus 5', :price => 30000
+  end
+
+  after do
+    Product.delete_all 
+  end
+
   scenario "can be created" do
     visit products_path
     click_button 'New Product'
@@ -12,9 +20,8 @@ feature "a product" do
   end
 
   scenario "can be viewed" do 
-    product = Product.create(name: "Nexus 5", price: 600)
-    visit product_path(product)
+    visit product_path(@product)
     expect(page).to have_content("Nexus 5")
-    expect(page).to have_content(600)
+    expect(page).to have_content(30000)
   end
 end
