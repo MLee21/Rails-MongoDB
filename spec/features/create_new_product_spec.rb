@@ -10,4 +10,11 @@ feature "a product" do
     click_button 'Save Product'
     expect(current_path).to eq(products_path)
   end
+
+  scenario "can be viewed" do 
+    product = Product.create(name: "Nexus 5", price: 600)
+    visit product_path(product)
+    expect(page).to have_content("Nexus 5")
+    expect(page).to have_content(600)
+  end
 end
