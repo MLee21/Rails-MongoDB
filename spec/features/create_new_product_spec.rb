@@ -38,4 +38,11 @@ feature "a product" do
     visit products_path
     expect(page).to_not have_content(30000)  
   end
+
+  scenario "can be deleted" do 
+    visit products_path
+    find("#product_#{@product.id}").click_link 'Delete'
+    expect(page).to_not have_content("Nexus 5")
+    expect(current_path).to eq(products_path)
+  end
 end
